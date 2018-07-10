@@ -1,6 +1,6 @@
 package com.kotlinexamples.main
 
-import com.kotlinexamples.models.Radio
+import com.kotlinexamples.models.*
 
 fun main(args: Array<String>) {
 
@@ -110,6 +110,82 @@ fun main(args: Array<String>) {
 
                     }
                     5 -> {
+                        //Opcion para cambio de estacion
+
+                        print("Digite 's' para subir estacion, o 'b' para bajar: ")
+                        val optionVolume:String? = readLine()
+                        if(optionVolume != null) {
+                            if(optionVolume.toLowerCase() == "b") {
+                                // Opcion para bajar volumen
+                                print("Digite la cantidad de unidades a bajar (Ej: 1, 0.3): ")
+                                val steps:String? = readLine()
+                                var stepsCount = 0.0
+                                if (steps != null) {
+                                    try {
+                                        stepsCount = steps.toDouble()
+                                    } catch (error: NumberFormatException) {
+                                        println("ERROR: la cantidad no es un numero, intenta de nuevo...")
+                                    }
+                                }
+
+                                if(stepsCount > 0.0) {
+                                    //Significa que si se ingreso un numero valido
+                                    if(myRadio.isOnFM){
+                                        if(myRadio.station - stepsCount < MIN_FM_STATION) {
+                                            println("ERROR: La cantidad de estaciones a bajar supera el limite, intenta de nuevo...")
+                                        } else {
+                                            myRadio.changeStation(false, stepsCount)
+                                            println("ESTACION REDUCIDO EN $stepsCount UNIDADES")
+                                        }
+                                    } else {
+                                        if(myRadio.station - stepsCount < MIN_AM_STATION) {
+                                            println("ERROR: La cantidad de estaciones a bajar supera el limite, intenta de nuevo...")
+                                        } else {
+                                            myRadio.changeStation(false, stepsCount)
+                                            println("ESTACION REDUCIDO EN $stepsCount UNIDADES")
+                                        }
+                                    }
+
+                                }
+
+                            } else if (optionVolume.toLowerCase() == "s"){
+                                // Opcion para bajar volumen
+                                print("Digite la cantidad de unidades a subir (Ej: 1, 0.3): ")
+                                val steps:String? = readLine()
+                                var stepsCount = 0.0
+                                if (steps != null) {
+                                    try {
+                                        stepsCount = steps.toDouble()
+                                    } catch (error: NumberFormatException) {
+                                        println("ERROR: la cantidad no es un numero, intenta de nuevo...")
+                                    }
+                                }
+
+                                if(stepsCount > 0) {
+                                    //Significa que si se ingreso un numero valido
+
+
+                                    if(myRadio.isOnFM){
+                                        if(myRadio.station + stepsCount > MAX_FM_STATION) {
+                                            println("ERROR: La cantidad de estaciones a bajar supera el limite, intenta de nuevo...")
+                                        } else {
+                                            myRadio.changeStation(true, stepsCount)
+                                            println("ESTACION AUMENTADA EN $stepsCount UNIDADES")
+                                        }
+                                    } else {
+                                        if(myRadio.station + stepsCount > MAX_AM_STATION) {
+                                            println("ERROR: La cantidad de estaciones a bajar supera el limite, intenta de nuevo...")
+                                        } else {
+                                            myRadio.changeStation(true, stepsCount)
+                                            println("ESTACION AUMENTADA EN $stepsCount UNIDADES")
+                                        }
+                                    }
+                                }
+                            } else {
+                                println("Opcion invalida, intenta de nuevo...")
+                            }
+                        }
+
 
                     }
                     6 -> {
