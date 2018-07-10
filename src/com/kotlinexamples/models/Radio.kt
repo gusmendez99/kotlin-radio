@@ -1,12 +1,13 @@
 package com.kotlinexamples.models
 
 class Radio (
-        private val brand: String,
-        private var isTurnedOn: Boolean = false,
-        private var isOnFM: Boolean = false,
-        private var volume: Int = 0,
-        private var station: Double = 87.0
+        val brand: String,
+        var isTurnedOn: Boolean = false,
+        var isOnFM: Boolean = false,
+        var volume: Int = 0,
+        var station: Double = 87.0
 ) {
+
     fun turnOn(){
         isTurnedOn = true
     }
@@ -15,14 +16,20 @@ class Radio (
         isTurnedOn = false
     }
 
+    fun changeFrequency() { isOnFM = !isOnFM }
+
+    fun changeVolumeLevel(isVolumeUp: Boolean, level:Int) {
+        if(isVolumeUp) { volume += level } else { volume -= level }
+    }
+
     override fun toString(): String {
         return """
             Radio:
-                Brand: $brand
-                Frequency: ${if(isOnFM) return "FM" else "AM"}
-                Volume: $volume
-                Station: $station
-                Is Turned On: $isTurnedOn
+                Marca: $brand
+                Frecuencia: ${if(isOnFM) "FM" else "AM"}
+                Volumen: $volume
+                Estacion: $station
+                Encendida?: $isTurnedOn
         """.trimIndent()
     }
 
